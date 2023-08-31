@@ -1,0 +1,25 @@
+service: kezzle
+frameworkVersion: "3"
+
+# plugins:
+#     - serverless-python-requirements
+
+provider:
+    name: aws
+    runtime: python3.11
+    stage: dev
+    region: ap-northeast-2
+    ecr:
+        images:
+            vitimage:
+                path: ./
+                platform: linux/amd64
+
+functions:
+    vit-serving:
+        # handler: main.lambda_handler
+        architecture: x86_64
+        image:
+            name: vitimage
+        timeout: 60
+        memorySize: 1536
