@@ -14,8 +14,8 @@ def get_vector(url):
     response = requests.get(url)
     img = Image.open(BytesIO(response.content))
     img = transform(img)
-    with torch.no_grad():
-        model.eval()
+    
+    with torch.inference_mode():
         vectors = model(img.unsqueeze(0).to(DEVICE))
     return vectors.squeeze(0)
 
